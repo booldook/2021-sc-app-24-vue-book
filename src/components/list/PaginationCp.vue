@@ -12,7 +12,6 @@ export default {
   components: { TableCp },
   created() {
     this.$store.dispatch("ACT_BOOKS", 1);
-    this.$store.dispatch("ACT_LOADING", true);
   },
 };
 </script>
