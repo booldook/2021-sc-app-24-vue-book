@@ -1,6 +1,33 @@
 <template>
-  <div class="pager-wrap">
-    <a :href="`/list/${firstPage}`" class="pager fa fa-step-backward"></a>
+  <ul class="pager-wrap">
+    <li @click="changePage" :title="firstPage" class="pager">
+      <i class="fa fa-step-backward"></i>
+    </li>
+    <li @click="changePage" :title="prevPager" class="pager">
+      <i class="fa fa-backward"></i>
+    </li>
+    <li @click="changePage" :title="prevPage" class="pager">
+      <i class="fa fa-caret-left"></i>
+    </li>
+    <li
+      v-for="v in pageArr"
+      :title="v"
+      :key="v"
+      :class="`pager ${page === v ? 'active' : ''}`"
+      @click="changePage"
+    >
+      {{ v }}
+    </li>
+    <li @click="changePage" :title="nextPage" class="pager">
+      <i class="fa fa-caret-right"></i>
+    </li>
+    <li @click="changePage" :title="nextPager" class="pager">
+      <i class="fa fa-forward"></i>
+    </li>
+    <li @click="changePage" :title="lastPage" class="pager">
+      <i class="fa fa-step-forward"></i>
+    </li>
+    <!-- <a :href="`/list/${firstPage}`" class="pager fa fa-step-backward"></a>
     <a :href="`/list/${prevPager}`" class="pager fa fa-backward"></a>
     <a :href="`/list/${prevPage}`" class="pager fa fa-caret-left"></a>
     <a
@@ -13,8 +40,8 @@
     </a>
     <a :href="`/list/${nextPage}`" class="pager fa fa-caret-right"></a>
     <a :href="`/list/${nextPager}`" class="pager fa fa-forward"></a>
-    <a :href="`/list/${lastPage}`" class="pager fa fa-step-forward"></a>
-  </div>
+    <a :href="`/list/${lastPage}`" class="pager fa fa-step-forward"></a> -->
+  </ul>
 </template>
 
 <script>
@@ -49,6 +76,14 @@ export default {
       }
     },
   },
+  methods: {
+    changePage(e) {
+      const _page = e.currentTarget.title;
+      if (this.page != _page) {
+        this.$store.dispatch("ACT_BOOKS", _page);
+      }
+    },
+  },
 };
 </script>
 
@@ -57,6 +92,7 @@ export default {
   margin: 2em auto;
   @include flex($h: center);
   .pager {
+    cursor: pointer;
     padding: 0.625em 0.875em;
     border: 1px solid $success-color;
     margin-right: -1px;
