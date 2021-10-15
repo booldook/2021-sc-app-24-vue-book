@@ -27,20 +27,6 @@
     <li @click="changePage" :title="lastPage" class="pager">
       <i class="fa fa-step-forward"></i>
     </li>
-    <!-- <a :href="`/list/${firstPage}`" class="pager fa fa-step-backward"></a>
-    <a :href="`/list/${prevPager}`" class="pager fa fa-backward"></a>
-    <a :href="`/list/${prevPage}`" class="pager fa fa-caret-left"></a>
-    <a
-      v-for="v in pageArr"
-      :href="`/list/${v}`"
-      :key="v"
-      :class="`pager ${page === v ? 'active' : ''}`"
-    >
-      {{ v }}
-    </a>
-    <a :href="`/list/${nextPage}`" class="pager fa fa-caret-right"></a>
-    <a :href="`/list/${nextPager}`" class="pager fa fa-forward"></a>
-    <a :href="`/list/${lastPage}`" class="pager fa fa-step-forward"></a> -->
   </ul>
 </template>
 

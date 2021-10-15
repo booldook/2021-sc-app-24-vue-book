@@ -33,18 +33,10 @@ export default {
   computed: {
     ...mapGetters(["GET_BOOKS"]),
   },
-  watch: {
-    GET_BOOKS: function (v) {
-      console.log(v);
-      this.$store.dispatch("ACT_LOADING", true);
-      // if (v) this.$store.dispatch("ACT_LOADING", false);
-    },
-  },
   beforeUpdate() {
-    console.log("before");
+    this.$store.dispatch("ACT_LOADING", true);
   },
   updated() {
-    console.log("after");
     this.$store.dispatch("ACT_LOADING", false);
   },
 };
