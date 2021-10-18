@@ -1,13 +1,13 @@
 <template>
   <section class="wrapper list-wrapper">
-    <TableCp :isPager="false" />
+    <TableCp :isPager="false" :books="books" />
     <div v-observe="changeVisible" />
   </section>
 </template>
 
 <script>
 import TableCp from "@/components/common/TableCp";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "InfiniteCp",
@@ -20,6 +20,9 @@ export default {
   },
   computed: {
     ...mapGetters(["GET_BOOKS"]),
+    lastPage() {
+      return this.GET_BOOKS.pager ? this.GET_BOOKS.pager.totalPage : 10000;
+    }
   },
   watch: {
     GET_BOOKS: function (v) {
@@ -27,13 +30,18 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 20 });
+    this.$store.dispatch("ACT_LOADING", true);
+    this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 10 });
+  },
+  updated() {
+    this.$store.dispatch("ACT_LOADING", false);
   },
   methods: {
     changeVisible(isVisible, entry) {
       console.log(isVisible, entry);
-      if (isVisible) {
-        this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 20 });
+      if (isVisible && this.page <= this.lastPage) {
+        this.$store.dispatch("ACT_LOADING", true);
+        this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 10 });
       }
     },
   },
