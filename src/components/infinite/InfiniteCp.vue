@@ -16,13 +16,14 @@ export default {
     return {
       page: 1,
       books: [],
+      listCnt: 10,
     };
   },
   computed: {
     ...mapGetters(["GET_BOOKS"]),
     lastPage() {
       return this.GET_BOOKS.pager ? this.GET_BOOKS.pager.totalPage : 10000;
-    }
+    },
   },
   watch: {
     GET_BOOKS: function (v) {
@@ -31,17 +32,22 @@ export default {
   },
   created() {
     this.$store.dispatch("ACT_LOADING", true);
-    this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 10 });
+    this.$store.dispatch("ACT_BOOKS", {
+      page: this.page++,
+      listCnt: this.listCnt,
+    });
   },
   updated() {
     this.$store.dispatch("ACT_LOADING", false);
   },
   methods: {
-    changeVisible(isVisible, entry) {
-      console.log(isVisible, entry);
+    changeVisible(isVisible) {
       if (isVisible && this.page <= this.lastPage) {
         this.$store.dispatch("ACT_LOADING", true);
-        this.$store.dispatch("ACT_BOOKS", { page: this.page++, listCnt: 10 });
+        this.$store.dispatch("ACT_BOOKS", {
+          page: this.page++,
+          listCnt: this.listCnt,
+        });
       }
     },
   },
@@ -49,4 +55,3 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
-
