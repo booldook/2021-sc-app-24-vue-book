@@ -12,7 +12,7 @@ import mixinInfo from "@/components/mixins/mixinInfo";
 
 export default {
   name: "InfoTxt",
-  mininx: [mixinInfo],
+  mixins: [mixinInfo],
 };
 </script>
 
